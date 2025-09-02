@@ -4,9 +4,8 @@ from telethon import TelegramClient
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 from flask import Flask
-from threading import Thread
 
-# ===== Telegram Bot Setup =====
+# ====== Конфіг ======
 API_ID = 23863521
 API_HASH = 'ace9a38bed2151c00da9f0cfcca9faad'
 BOT_TOKEN = '8453985739:AAH78l1_XNcn_X7Ii9Gh7-OGTCHUuBaZ9Uk'
@@ -204,17 +203,8 @@ flask_app = Flask('')
 def home():
     return "Bot is alive!"
 
-def run_flask():
-    flask_app.run(host='0.0.0.0', port=8080)
-
-Thread(target=run_flask).start()
-
 # ===== Головний асинхронний запуск бота =====
 async def main():
     print("Бот запущений! Юзерботи теж активні.")
     await app.start()
     await app.updater.start_polling()
-    await asyncio.Event().wait()  # тримає бот активним
-
-if __name__ == "__main__":
-    asyncio.run(main())
